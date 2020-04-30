@@ -5,11 +5,11 @@
 	"author": "jinghui",
 	"private": true,
 	"build": {
-    "productName":"小鱼云视频",
+		"productName": "小鱼云视频",
 		"appId": "com.xylink.www",
 		"mac": {
-      "category": "xylink.app.category.type",
-      "icon": "public/icons/icon.icns"
+			"category": "xylink.app.category.type",
+			"icon": "public/icons/icon.icns"
 		}
 	},
 	"dependencies": {

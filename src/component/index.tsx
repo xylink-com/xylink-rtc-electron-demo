@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Row, message } from 'antd';
+import { Modal, Button, Row, message } from 'antd';
 import { IDisconnected, IParticipantCount, ILayout, IScreenInfo, IAudioTrack, ICallStatus, IAudioStatus, IRoster } from '../type/index';
 import { ENV, SERVER, ACCOUNT, THIRD } from '../utils/config';
 import xyRTC from 'xy-rtc-sdk';
@@ -65,6 +65,11 @@ function Home() {
   const [senderStatus, setSenderStatus] = useState<any>({ sender: {}, receiver: {} });
   // 是否是调试模式（开启则显示所有画面的呼叫数据）
   const [debug, setDebug] = useState(false);
+
+  const [electronSelectContent, setElectronSelectContent] = useState<any>({
+    visible: false,
+    data: []
+  });
 
   // 缓存清理声量的timmer定时器函数
   const clearTimmer = useCallback(() => {
@@ -482,26 +487,86 @@ function Home() {
 
   // 分享content内容
   const shareContent = async () => {
-    console.log("11111");
-    const result = await stream.createElectronContentStream(desktopCapturer);
+    const result = await stream.getElectronContentSources(desktopCapturer, ['window', 'screen']);
 
-    // 创建分享屏幕stream成功
-    if (result.code === 518) {
-      setShareContentStatus(true);
+    console.log("result: ", result);
 
-      stream.on('start-share-content', () => {
-        client.publish(stream, { isShareContent: true });
-      })
-
-      stream.on('stop-share-content', () => {
-        stopShareContent();
+    if (result && result.length) {
+      setElectronSelectContent({
+        visible: true,
+        data: result.map((item: any, index: 0) => ({
+          ...item,
+          selected: index === 0,
+          src: item.thumbnail.toDataURL()
+        }))
       })
     } else {
-      if (result && result.code !== 500) {
+      message.info("分享失败");
+    }
+  }
 
-        message.info(result.msg || '分享屏幕失败');
-        return;
+  const onSelectItem = (id: any, selected: any) => {
+    if (selected) {
+      return;
+    }
+
+    const data = electronSelectContent.data;
+    const newData = data.map((item: any) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          selected: true
+        }
+      } else {
+        return {
+          ...item,
+          selected: false
+        }
       }
+    })
+
+    setElectronSelectContent({
+      visible: true,
+      data: newData
+    })
+  }
+
+  const startShareContent = async () => {
+    const data = electronSelectContent.data;
+    const resource = data.filter((item: any) => item.selected);
+    console.log("resource: ", resource);
+
+    if (resource.length) {
+      const result = await stream.createElectronContentStream(resource[0].id);
+
+      setElectronSelectContent({
+        visible: false,
+        data: []
+      })
+
+      // 创建分享屏幕stream成功
+      if (result.code === 518) {
+        setShareContentStatus(true);
+
+        stream.on('start-share-content', () => {
+          client.publish(stream, { isShareContent: true });
+        })
+
+        stream.on('stop-share-content', () => {
+          stopShareContent();
+        })
+      } else {
+        if (result && result.code !== 500) {
+
+          message.info(result.msg || '分享屏幕失败');
+          return;
+        }
+      }
+    } else {
+      setElectronSelectContent({
+        visible: false,
+        data: []
+      })
     }
   }
 
@@ -536,6 +601,38 @@ function Home() {
             </div>
 
             <Internels debug={debug} senderStatus={senderStatus} switchDebug={switchDebug}></Internels>
+
+            <Modal
+              title="选择分享内容"
+              visible={electronSelectContent.visible}
+              onOk={startShareContent}
+              width={600}
+              className="select_modal"
+              okText="分享"
+              cancelText="取消"
+              onCancel={() => {
+                setElectronSelectContent({
+                  visible: false,
+                  data: []
+                })
+              }}
+            >
+              <div className="box">
+                {
+                  electronSelectContent.data.map(({ id, name, src, selected }: any) => {
+                    return (
+                      <div className="item" onClick={() => {
+                        onSelectItem(id, selected);
+                      }} id={id} key={id} style={{ border: selected ? '2px solid #1890ff' : '2px solid transparent' }}>
+                        <img src={src} alt="img" className="img" />
+                        <div className="desc">{name}</div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </Modal>
+
           </div>
 
           <div className="meeting-footer">
