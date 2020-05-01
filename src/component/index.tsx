@@ -273,9 +273,6 @@ function Home() {
           clientId,
           clientSecret
         });
-      } else {
-        // 小鱼登录
-        result = await client.loginXYlinkAccount(user.phone, user.password);
       }
 
       if (result.code === 10104) {

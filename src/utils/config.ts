@@ -5,8 +5,8 @@
  * @date  2020-01-17 12:04:01
  */
 
-export const ENV: 'PRE' | 'PRD' | 'TXDEV' = 'PRE';
-export const THIRD: boolean = false;
+export const ENV: 'PRE' | 'PRD' | 'TXDEV' = 'PRD';
+export const THIRD: boolean = true;
 
 const SERVER_MAP: any = {
 	TXDEV: {
@@ -41,16 +41,16 @@ const SERVER_MAP: any = {
  * 重要提示
  */
 const PRODUCTION_ACCOUNT = {
-	extId: 'ddbbb1b45ff2834056886746cb715fae5079d18c',
-	clientId: 'pV2w8Qs8PJkTJDjdO9zUsk2W',
-	clientSecret: '38bmDdtinfKzNbrT1Pjer2hNXieUtjTr'
+	extId: '',
+	clientId: '',
+	clientSecret: ''
 };
 
 const THIRD_ACCOUNT_MAP = {
 	TXDEV: {
-		extId: 'a8659e5d496283c5d5ed18b9b51f263bfeeebc79',
-		clientId: 'HiCI0ujW0pQONPuxmTtld34G',
-		clientSecret: '$2a$10$kANFfuVLa2WWGBaJpdTXrejA/x8Nc1vHQyAYkmuhuu4fG/i/Pu37u'
+		extId: '',
+		clientId: '',
+		clientSecret: ''
 	},
 	PRE: PRODUCTION_ACCOUNT,
 	PRD: PRODUCTION_ACCOUNT
