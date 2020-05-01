@@ -3624,6 +3624,16 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
+dexie-export-import@^1.0.0-rc.1:
+  version "1.0.0-rc.2"
+  resolved "https://registry.npmjs.org/dexie-export-import/-/dexie-export-import-1.0.0-rc.2.tgz#65267ecae6fe78c4122687fd978341010c6f367a"
+  dependencies:
+    dexie "^3.0.0-alpha.5 || ^2.0.4"
+
+dexie@^2.0.4, "dexie@^3.0.0-alpha.5 || ^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/dexie/-/dexie-2.0.4.tgz#6027a5e05879424e8f9979d8c14e7420f27e3a11"
+
 diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://registry.npmjs.org/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
@@ -10404,6 +10414,10 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
 
+uuid@^7.0.2:
+  version "7.0.3"
+  resolved "https://registry.npmjs.org/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
+
 v8-compile-cache@^2.0.3:
   version "2.1.0"
   resolved "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.1.0.tgz#e14de37b31a6d194f5690d67efc4e7f6fc6ab30e"
@@ -10887,6 +10901,14 @@ xtend@~2.1.1:
   resolved "https://registry.npmjs.org/xtend/-/xtend-2.1.2.tgz#6efecc2a4dad8e6962c4901b337ce7ba87b5d28b"
   dependencies:
     object-keys "~0.4.0"
+
+xy-rtc-sdk@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/xy-rtc-sdk/-/xy-rtc-sdk-1.2.0.tgz#59d030a2922b537376e18e07e44546cb764861a8"
+  dependencies:
+    dexie "^2.0.4"
+    dexie-export-import "^1.0.0-rc.1"
+    uuid "^7.0.2"
 
 "y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
   version "4.0.0"

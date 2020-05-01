@@ -27,7 +27,8 @@
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-scripts": "3.4.1",
-		"typescript": "~3.7.2"
+		"typescript": "~3.7.2",
+		"xy-rtc-sdk": "1.2.0"
 	},
 	"main": "public/electron.js",
 	"homepage": "./",
@@ -46,8 +47,16 @@
 		"extends": "react-app"
 	},
 	"browserslist": {
-		"production": [ ">0.2%", "not dead", "not op_mini all" ],
-		"development": [ "last 1 chrome version", "last 1 firefox version", "last 1 safari version" ]
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
 	},
 	"devDependencies": {
 		"babel-plugin-import": "^1.13.0",
